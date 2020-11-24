@@ -1,25 +1,21 @@
-version: '2'
+version: '3'
 services:
   mqtt:
-    image: bitrox/mqtt
+    image: drewlsvern/mqtt
     networks:
-      - backend-net
+      - webproxy
     ports:
       - 1883:1883
       - 8083:8083
       - 8883:8883
       - 8116:80
-    environment:
-      - DOMAIN=mqtt.bitrox.io
-      - EMAIL=proxy@bitrox.io
     volumes:
-      - ./mosquitto/conf/:/mosquitto/conf
-      - ./mosquitto/log/:/mosquitto/log
-      - ./letsencrypt:/etc/letsencrypt
-      - ./scripts:/scripts
+      - ${MOSQUITTO_FILES_PATH:-./mosquitto}/conf:/mosquitto/conf
+      - ${MOSQUITTO_FILES_PATH:-./mosquitto}/log:/mosquitto/log
+      - ${MOSQUITTO_FILES_PATH:-./mosquitto}/scripts:/scripts
     container_name: mqtt
     restart: always
 networks:
-  backend-net:
+  webproxy:
     external:
-      name: backend-net
+      name: webproxy

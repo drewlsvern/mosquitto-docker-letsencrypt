@@ -9,7 +9,7 @@
 #		the mosquitto process is restarted, causing
 #		a brief (few second) unavoidable service disruption
 #
-/certbot.sh
+#/certbot.sh
 
 # This script assumes a standard persistent directory and file layout of:
 #	/mosquitto/
@@ -63,10 +63,11 @@ if [ -f "/mosquitto/conf/mosquitto.conf" ]; then
 	#
 	# A possible enhancement would be to include an "is alive" check
 	# for mosquitto to restart it if required or exit the container.
-	/usr/sbin/mosquitto -c /mosquitto/conf/mosquitto.conf&
-	echo "Going to sleep..."
+	#/usr/sbin/mosquitto -c /mosquitto/conf/mosquitto.conf&
+	/usr/sbin/mosquitto -c /mosquitto/conf/mosquitto.conf
+	#echo "Going to sleep..."
 	# sleep infinity not available, so 9999d should be an acceptable substitute :-)
-	sleep 9999d
+	#sleep 9999d
 else
 	echo "ERROR: missing /mosquitto/conf/mosquitto.conf"
 	echo "ERROR: check your Docker volume mappings"
